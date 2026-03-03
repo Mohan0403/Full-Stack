@@ -23,15 +23,36 @@ connectDB();
 const app = express();
 const httpServer = createServer(app);
 
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://your-frontend-name.vercel.app',
+const configuredOrigins = [
   process.env.CLIENT_URL,
-].filter(Boolean);
+  ...(process.env.CLIENT_URLS ? process.env.CLIENT_URLS.split(',') : []),
+]
+  .map((value) => `${value || ''}`.trim())
+  .filter(Boolean);
+
+const localOrigins = ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175'];
+const allowedOrigins = [...new Set([...localOrigins, ...configuredOrigins])];
+
+const isAllowedOrigin = (origin = '') => {
+  if (!origin) return true;
+  if (allowedOrigins.includes(origin)) return true;
+
+  try {
+    const { hostname } = new URL(origin);
+    return hostname.endsWith('.vercel.app');
+  } catch {
+    return false;
+  }
+};
 
 // Middleware
 app.use(cors({
-	origin: allowedOrigins,
+	origin: (origin, callback) => {
+		if (isAllowedOrigin(origin)) {
+			return callback(null, true);
+		}
+		return callback(new Error('CORS not allowed'));
+	},
 	credentials: true
 }));
 app.use(express.json());

@@ -35,7 +35,11 @@ export const useAuth = () => {
       dispatch(setCredentials({ user: data, token: data.token }));
       navigate('/dashboard');
     } catch (err) {
-      dispatch(setError(err.response?.data?.message || 'Login failed'));
+      if (!err?.response) {
+        dispatch(setError('Cannot reach backend. Check VITE_API_URL and backend CORS/CLIENT_URL settings.'));
+      } else {
+        dispatch(setError(err.response?.data?.message || 'Login failed'));
+      }
     } finally {
       dispatch(setLoading(false));
     }
@@ -49,7 +53,11 @@ export const useAuth = () => {
       dispatch(setCredentials({ user: data, token: data.token }));
       navigate('/dashboard');
     } catch (err) {
-      dispatch(setError(err.response?.data?.message || 'Registration failed'));
+      if (!err?.response) {
+        dispatch(setError('Cannot reach backend. Check VITE_API_URL and backend CORS/CLIENT_URL settings.'));
+      } else {
+        dispatch(setError(err.response?.data?.message || 'Registration failed'));
+      }
     } finally {
       dispatch(setLoading(false));
     }
