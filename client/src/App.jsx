@@ -5,7 +5,7 @@ import Auth from './pages/Auth';
 import Dashboard from './pages/Dashboard';
 import Workspace from './pages/Workspace';
 import Settings from './pages/Settings';
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './components/protectedRoute';
 import Layout from './layouts/Layout';
 import CommandPalette from './layouts/CommandPalette';
 import { useSocket } from './hooks/useSocket';
