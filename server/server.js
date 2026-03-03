@@ -23,16 +23,15 @@ connectDB();
 const app = express();
 const httpServer = createServer(app);
 
-const allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:5173', 'http://localhost:5174'].filter(Boolean);
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://your-frontend-name.vercel.app',
+  process.env.CLIENT_URL,
+].filter(Boolean);
 
 // Middleware
 app.use(cors({
-	origin: (origin, callback) => {
-		if (!origin || allowedOrigins.includes(origin)) {
-			return callback(null, true);
-		}
-		return callback(new Error('CORS not allowed'));
-	},
+	origin: allowedOrigins,
 	credentials: true
 }));
 app.use(express.json());
@@ -58,5 +57,5 @@ app.use(errorHandler);
 const io = initializeSocket(httpServer);
 app.set('io', io); // make io accessible in controllers if needed
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 httpServer.listen(PORT, () => console.log(`Server running on port ${PORT}`));
