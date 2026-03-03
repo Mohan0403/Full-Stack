@@ -155,6 +155,15 @@ CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 ```
 
+Frontend (`client`) for Vercel:
+
+```bash
+# Required for production frontend deployment
+VITE_API_URL=https://your-backend-name.onrender.com/api
+```
+
+For local development, `client/src/services/api.js` uses `VITE_API_URL` and falls back to `/api` so Vite proxy still works.
+
 ## 🌐 Browser Compatibility
 
 - ✅ Chrome/Edge 90+
