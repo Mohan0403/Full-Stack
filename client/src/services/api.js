@@ -13,6 +13,13 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
+  if (typeof config.baseURL === 'string' && typeof config.url === 'string') {
+    const normalizedBaseURL = config.baseURL.replace(/\/+$/, '');
+    if (normalizedBaseURL.endsWith('/api') && config.url.startsWith('/api/')) {
+      config.url = config.url.replace(/^\/api/, '');
+    }
+  }
+
   const token = localStorage.getItem('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
