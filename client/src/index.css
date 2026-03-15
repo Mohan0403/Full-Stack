@@ -180,6 +180,17 @@ body.light-theme select {
   border-color: rgba(15, 23, 42, 0.12);
 }
 
+/* Ensure native select popup options stay readable on Windows/Chromium. */
+.invite-role-select option {
+  color: #0f172a;
+  background-color: #f8fafc;
+}
+
+body.light-theme .invite-role-select option {
+  color: #0f172a;
+  background-color: #ffffff;
+}
+
 body.light-theme .text-gray-400,
 body.light-theme .text-gray-300,
 body.light-theme .text-gray-500 {

@@ -45,11 +45,10 @@ export const useWorkspace = () => {
 
     const response = await workspaceService.inviteMember(workspaceId, payload);
 
-    try {
-      await fetchWorkspace(workspaceId);
-    } catch (refreshError) {
+    // Refresh members in background so UI can show invite success immediately.
+    fetchWorkspace(workspaceId).catch((refreshError) => {
       console.error('Workspace refresh failed after invite:', refreshError?.message || refreshError);
-    }
+    });
 
     return response.data;
   };

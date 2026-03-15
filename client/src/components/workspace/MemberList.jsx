@@ -172,7 +172,7 @@ const MemberList = () => {
             <select
               value={inviteRole}
               onChange={(e) => setInviteRole(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent"
+              className="invite-role-select w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-slate-100 focus:outline-none focus:ring-2 focus:ring-accent"
             >
               <option value="member">Member</option>
               <option value="admin">Admin</option>
